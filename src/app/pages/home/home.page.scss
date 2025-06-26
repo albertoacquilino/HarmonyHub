@@ -59,7 +59,7 @@ ion-modal {
 }
 
 .wrapper {
-  //background-color: red;
+  background-color: white;
   width: 650px;
   height: 460px;
   overflow: hidden;
@@ -178,9 +178,9 @@ ion-segment-button {
   display: flex;
   //grid-area: controls;
   background-color: gray;
-  padding: 10px;
-  margin: 6px;
-  border-radius: 6px;
+  padding: 18px;
+  //margin: 6px;
+  //border-radius: 6px;
   justify-content: center;
 }
 
