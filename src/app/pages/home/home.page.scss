@@ -177,7 +177,7 @@ ion-segment-button {
 .controls {
   display: flex;
   //grid-area: controls;
-  background-color: gray;
+  background-color: white;
   padding: 18px;
   //margin: 6px;
   //border-radius: 6px;
@@ -290,6 +290,10 @@ ion-segment-button {
   }
 
   @media screen and (max-height: 600px) {
+    .clarinet{
+      max-width: 150px;
+      margin-left:-40px;
+    }
     .landscape-d-none {
       display: none;
     }
@@ -299,5 +303,9 @@ ion-segment-button {
     .top-middle-container {
       display: flex;
     }
+  .score {
+    margin-left: -100px; /* Shift left in landscape */
+    max-width:170px ;
+  }
   }
 }

@@ -44,22 +44,36 @@ import { ScrollImageComponent } from '../scroll-image-selector/scroll-image-sele
       </div>
   `,
   styles: [`
-    #note-image-id {
-      width: 100%;
+
+    .note-image {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 100px; /* Fixed height for image container */
+  }
+    .title-section-wrapper{
+    font-size: 1em;
     }
+  #note-image-id {
+    max-width: 100px; /* Reduce if too large */
+    max-height: 100px;
+    width: auto;
+    height: auto;
+  }
 
     .simulate-input {
-      background-color: #ececec;
-      border: 1px solid lightgrey;
+      background-color: #white;
+      border: 2px solid #009dda;
       border-radius: 6px;
-      padding: 1px 15px;
+      padding: 8px 10px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       color: black;
-      max-width: 165px;
-      max-height: 165px;
+      max-width: 200px;
+      max-height: 200px;
+      box-sizing: border-box;
     }
   `],
   
@@ -134,6 +148,7 @@ export class NoteSelectorComponent implements OnInit {
   getNoteImg(note: number): string {
     return note >= 0 && note < this.noteImages.length ? this.noteImages[note] : '';
   }
+  
 
   /**
    * Determines whether the modal can be dismissed or not.

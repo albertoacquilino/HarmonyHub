@@ -43,3 +43,10 @@
         height: auto;
     }
 }
+
+@media screen and (orientation: landscape) and (max-height: 600px) {
+    .trumpet-img {
+        width: 200px;
+        transform: translateX(-60px) translateY(20px); 
+    }
+}

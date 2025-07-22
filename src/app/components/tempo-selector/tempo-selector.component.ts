@@ -35,28 +35,33 @@ import { MAXTEMPO, MINTEMPO } from 'src/app/constants';
   `,
   styles: [`
   .tempo h1 {
-    font-size: 1.5em;
+    font-size: 1em;
     text-align: center;
+    margin:10px 10px 10px 10px;
   }
-
+.title-section-wrapper{
+font-size: 1em;
+}
   .tempo {
     flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%; /* Fill container */
   }
   .simulate-input {
-    background-color: #ececec;
-    border: 1px solid lightgrey;
+    background-color: #white;
+    border: 2px solid #009dda;
     border-radius: 6px;
-    padding: 10px 10px;
+    padding: 8px 10px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: black;
-    max-width: 165px;
-    max-height: 165px;
+    max-width: 200px;
+    max-height: 200px;
+    box-sizing: border-box;
   }
   `],
   standalone: true,
