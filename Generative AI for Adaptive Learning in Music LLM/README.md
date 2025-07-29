@@ -1,4 +1,5 @@
-<div align="center"> <img src="https://gist.github.com/user-attachments/assets/495d85e3-287f-499a-a1b3-40a1636c278b" alt="Centered Image" width="600"> </div>
+<div align="center"> <img src="<img width="754" height="250" alt="image" src="https://github.com/user-attachments/assets/4684a72f-61e6-459e-8b62-bca378fe539f" />
+" alt="Centered Image" width="600"> </div>
 
 ## GSoC 2025 Report
 
@@ -20,8 +21,9 @@
 
 This tool is especially useful for students at different learning stages and offers exports in MIDI, MP3, and JSON formats. With a Gradio-based web interface and integrated AI assistant, HarmonyHub is designed to be highly accessible for both teachers and students.
 
-<img width="1173" height="643" alt="Screenshot 2025-07-08 at 10 43 43 PM" src="https://private-user-images.githubusercontent.com/153541511/465845971-e47a7bf1-e51b-4e79-8c95-9bc0aaf5be3b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTM4MDgzNzEsIm5iZiI6MTc1MzgwODA3MSwicGF0aCI6Ii8xNTM1NDE1MTEvNDY1ODQ1OTcxLWU0N2E3YmYxLWU1MWItNGU3OS04Yzk1LTliYzBhYWY1YmUzYi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzI5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyOVQxNjU0MzFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMWJkYmQ2ZTcyODkxYjI0OGRhOTg3OWMwNmUzMzJhODY1MmY0MDQzYmM5YTg1NzhiYWMxZmUzMmZjNmI1YmNhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.maLq70pM1Q_G4rFCTLbl6Nk0los8douQUu_i7LT-384<img width="2346" height="1286" alt="image" src="https://github.com/user-attachments/assets/662fcf94-10b6-4345-9ce9-064c286e4d43" />
-" />
+<img width="1173" height="643" alt="Screenshot 2025-07-08 at 10 43 43 PM" src="<img width="935" height="526" alt="image" src="https://github.com/user-attachments/assets/34497182-3d15-489e-9fc6-c33eced3df20" />
+
+
 
 ---
 
@@ -65,13 +67,15 @@ Here are selected images showcasing the current progress and functionality of **
 
 ### 1. 🖥️ Gradio Web Interface – Home Panel
 <img width="1493" height="704" alt="image" src="<img width="1710" height="991" alt="image" src="https://github.com/user-attachments/assets/09984f3a-aab7-464f-9a70-70793b64eed6" />
-" />
+
 
 ---
 
 ### 2. 🎛️ Parameter-Based Exercise Generation
-<img width="1483" height="682" alt="image" src="https://gist.github.com/user-attachments/assets/27c27c7d-3053-4da0-a189-f4e3085acf05" />
-<div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;"> <img src="https://gist.github.com/user-attachments/assets/0ab56bf5-7d7b-4151-a4db-9288fe50615d" alt="Left Image" width="48%"> <img src="https://gist.github.com/user-attachments/assets/ed4aa441-5d39-4be3-b858-520e1af35e8e" alt="Right Image" width="48%"> </div>
+<img width="1483" height="682" alt="image" src="<img width="1520" height="738" alt="image" src="https://github.com/user-attachments/assets/a2782f33-9e15-4038-824f-e6dcf3cb33c1" />
+<div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;"> <img src<img width="493" height="650" alt="image" src="https://github.com/user-attachments/assets/81d5214f-9667-459b-9ac7-5cfb484c9b7e" />
+" alt="Left Image" width="48%"> <img src="<img width="494" height="538" alt="image" src="https://github.com/user-attachments/assets/4e56f8d8-a2f5-4c3f-a49d-c3bcd6552e9a" />
+" alt="Right Image" width="48%"> </div>
 
 
 ---
