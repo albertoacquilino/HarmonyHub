@@ -42,14 +42,8 @@ HarmonyHub revolutionizes music education by leveraging **Mistral LLM** to gener
 ```
 
 ### **2. Adaptive Learning Pipeline**  
-```mermaid
-graph LR
-A[User Input] --> B(LLM Generates JSON)
-B --> C{Duration Scaling}
-C --> D[MIDI Synthesis]
-D --> E[MP3/SoundFont Rendering]
-E --> F[Real-Time Feedback]
-```
+<img width="933" height="516" alt="image" src="https://github.com/user-attachments/assets/574e5c15-30e9-430f-a5dc-cbd564e99e20" />
+
 
 ### **3. Advanced MIDI Handling**  
 - **Rest Support**: Silent notes with accurate timing  
@@ -86,7 +80,7 @@ E --> F[Real-Time Feedback]
 
 ```json
 {
-  "metadata": {
+  "Mistral": {
     "instrument": "Trumpet",
     "bpm": 120,
     "time_signature": "4/4"
@@ -116,7 +110,7 @@ E --> F[Real-Time Feedback]
 |------------------------------|---------|
 | Sheet Music Rendering        | ⏳ WIP  |
 | Polyphonic Support           | Planned |
-| Local LLM (Llama 3) Option   | Planned |
+
 
 **Research Areas**:  
 - HARMONIX dataset for style transfer  
