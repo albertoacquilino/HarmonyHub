@@ -10,7 +10,7 @@
 
 **Mentors**: Alberto Acquilino, Mirko D'Andrea, Keerthi Reddy Kambham, Thrun, Oscar
 
-**Hugging Face Repo**: [Music LLM](https://huggingface.co/spaces/SHIKARICHACHA/adaptive-music-exercise-generator)
+**Hugging Face Repo**: [Music LLM](https://huggingface.co/spaces/SHIKARICHACHA/AI_Music_V2)
 
 ---
 
@@ -20,7 +20,8 @@
 
 This tool is especially useful for students at different learning stages and offers exports in MIDI, MP3, and JSON formats. With a Gradio-based web interface and integrated AI assistant, HarmonyHub is designed to be highly accessible for both teachers and students.
 
-<img width="1173" height="643" alt="Screenshot 2025-07-08 at 10 43 43 PM" src="https://gist.github.com/user-attachments/assets/e47a7bf1-e51b-4e79-8c95-9bc0aaf5be3b" />
+<img width="1173" height="643" alt="Screenshot 2025-07-08 at 10 43 43 PM" src="https://private-user-images.githubusercontent.com/153541511/465845971-e47a7bf1-e51b-4e79-8c95-9bc0aaf5be3b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTM4MDgzNzEsIm5iZiI6MTc1MzgwODA3MSwicGF0aCI6Ii8xNTM1NDE1MTEvNDY1ODQ1OTcxLWU0N2E3YmYxLWU1MWItNGU3OS04Yzk1LTliYzBhYWY1YmUzYi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNzI5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDcyOVQxNjU0MzFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMWJkYmQ2ZTcyODkxYjI0OGRhOTg3OWMwNmUzMzJhODY1MmY0MDQzYmM5YTg1NzhiYWMxZmUzMmZjNmI1YmNhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.maLq70pM1Q_G4rFCTLbl6Nk0los8douQUu_i7LT-384<img width="2346" height="1286" alt="image" src="https://github.com/user-attachments/assets/662fcf94-10b6-4345-9ce9-064c286e4d43" />
+" />
 
 ---
 
@@ -63,7 +64,8 @@ This tool is especially useful for students at different learning stages and off
 Here are selected images showcasing the current progress and functionality of **HarmonyHub**:
 
 ### 1. 🖥️ Gradio Web Interface – Home Panel
-<img width="1493" height="704" alt="image" src="https://gist.github.com/user-attachments/assets/aa9b02f8-4f35-48f7-8699-2b3b38dca17c" />
+<img width="1493" height="704" alt="image" src="<img width="1710" height="991" alt="image" src="https://github.com/user-attachments/assets/09984f3a-aab7-464f-9a70-70793b64eed6" />
+" />
 
 ---
 
