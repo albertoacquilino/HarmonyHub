@@ -55,14 +55,15 @@
   font-size: 20px;
 
 }
-@media screen and (orientation: landscape)and (max-height: 600px) {
+@media screen and (orientation: landscape) {
   .no-action-text{
-    transform: translateX(-30px); /* Adjust this value to shift left */
+    transform: translateX(-40px); /* Adjust this value to shift left */
   }
   .light-container {
+    //transform: translateX(-60px) translateY(20px); 
     display: flex;
     align-items: center;
-    transform: translateX(-30px); /* Adjust this value to shift left */
+    transform: translateX(-40px); /* Adjust this value to shift left */
     .light-wrapper {
       width: 30px;
       height: 30px;

@@ -45,37 +45,108 @@ import { ScrollImageComponent } from '../scroll-image-selector/scroll-image-sele
   `,
   styles: [`
 
-    .note-image {
+  
+  .note-image {
     display: flex;
     align-items: center;
     justify-content: center; 
-    height: 100px; /* Fixed height for image container */
-  }
-    .title-section-wrapper{
-    font-size: 1em;
-    }
-  #note-image-id {
-    max-width: 100px; /* Reduce if too large */
-    max-height: 100px;
-    width: auto;
+    width: 90%;
     height: auto;
+    padding: 1em;
+    box-sizing: border-box;
   }
 
+  .title-section-wrapper {
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 0.1em;
+  }
+
+  #note-image-id {
+    width: 90%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .simulate-input {
+    background-color: #fff;
+    border: 2px solid #009dda;
+    border-radius: 6px;
+    padding: 1px 1px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    width: 90%;
+    max-width: 250px;
+    box-sizing: border-box;
+    margin:auto;
+    max-height:250px;
+  }
+
+  @media screen and (max-width: 480px) {
     .simulate-input {
-      background-color: #white;
-      border: 2px solid #009dda;
-      border-radius: 6px;
-      padding: 8px 10px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: black;
+      width: 80%;
       max-width: 200px;
-      max-height: 200px;
-      box-sizing: border-box;
     }
-  `],
+
+    .title-section-wrapper {
+      font-size: 0.9em;
+    }
+  }
+@media screen and (orientation: landscape) {
+    .simulate-input {
+      width: 85%;
+      max-width: 250px;
+     
+      padding: 10px;
+     
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .simulate-input {
+      width: 80%;
+      max-width: 230px;
+    }
+
+    .title-section-wrapper {
+      font-size: 1.1em;
+    }
+  }
+      @media screen and (min-width: 900px) {
+    .simulate-input {
+      width: 80%;
+      max-width: 300px;
+    }
+
+    .title-section-wrapper {
+      font-size: 1.1em;
+    }
+  }
+    @media screen and (min-width: 1200px) {
+    .simulate-input {
+      width: 80%;
+      max-width: 400px;
+    }
+
+    .title-section-wrapper {
+      font-size: 1.5em;
+    }
+  }
+    @media screen and (min-width: 1200px) {
+    .simulate-input {
+      width: 68%;
+      max-width: 600px;
+    }
+
+    .title-section-wrapper {
+      font-size: 1.5em;
+    }
+  }
+`],
   
   standalone: true,
   imports: [
