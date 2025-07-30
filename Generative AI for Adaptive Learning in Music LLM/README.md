@@ -73,8 +73,13 @@ HarmonyHub revolutionizes music education by leveraging **Mistral LLM** to gener
 ### **1. Web Interface**  
 <img width="1710" height="991" alt="image" src="https://github.com/user-attachments/assets/a34c7ec5-d3db-4126-87a0-0853ea35193c" />
 
+### **2. 🎛️ Parameter-Based Exercise Generation
+<img width="1486" height="706" alt="image" src="https://github.com/user-attachments/assets/80d1d949-688e-49aa-a01a-e23bea3cc789" />
+<img width="502" height="546" alt="image" src="https://github.com/user-attachments/assets/4840676a-3b6c-4a25-bdd4-22877665650d" />
 
-### **2. JSON Exercise Preview** 
+---
+
+### **3. JSON Exercise Preview** 
 <img width="1543" height="838" alt="image" src="https://github.com/user-attachments/assets/5410cec4-0a6f-4831-8e72-7d737b0fb79b" />
 
 
