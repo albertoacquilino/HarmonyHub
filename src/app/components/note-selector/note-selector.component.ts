@@ -208,7 +208,7 @@ export class NoteSelectorComponent implements OnInit {
    */
   private updateNoteImages() {
     const notes = this._selectedInstrument === 'trumpet' ? TRUMPET_NOTES : CLARINET_NOTES;
-    this.noteImages = notes.map(note => `assets/images/${this._selectedInstrument}_notes_images/_${note[0]}.svg`);
+    this.noteImages = notes.map(note => `assets/images/clarinet_notes_images/_${note[0]}.svg`);
   }
 
   /**

@@ -226,7 +226,7 @@ export class HomePage implements OnInit {
    * @returns An array of paths to note images.
    */
   private getNoteImages(): string[] {
-    return this.NOTES.map(note => `assets/images/${this.selectedInstrument}_notes_images/_${note[0]}.svg`);
+    return this.NOTES.map(note => `assets/images/clarinet_notes_images/_${note[0]}.svg`);
   }
 
   /**
@@ -633,7 +633,7 @@ export class HomePage implements OnInit {
   }
   //return this.NOTES.map(note => `
   getNoteImg(note: number): string {
-   return 'assets/images/${this.selectedInstrument}_notes_images/_${this.NOTES[note][0]}.png';
+   return 'assets/images/clarinet_notes_images/_${this.NOTES[note][0]}.png';
     //return `assets/images/${this.NOTES}_notes_images/_${this.NOTES[note][0]}.png`;
   }
   switchToMode(mode_new: string) {
