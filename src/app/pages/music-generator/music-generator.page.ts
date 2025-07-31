@@ -89,6 +89,12 @@ export class MusicGeneratorPage implements OnInit {
   }
 
   loadAudio(mp3Url: string) {
+    if (!mp3Url) {
+      console.error('Empty MP3 URL provided');
+      this.showAudioErrorToast();
+      return;
+    }
+
     if (this.audioPlayer) {
       this.audioPlayer.stop();
       this.audioPlayer.unload();
@@ -98,62 +104,91 @@ export class MusicGeneratorPage implements OnInit {
     const fullUrl = this.musicGeneratorService.getFileUrl(mp3Url);
     console.log('Loading audio from URL:', fullUrl);
     
-    // Try to fetch the audio file directly to check if it's accessible
-    fetch(fullUrl, { method: 'HEAD' })
+    // First verify the audio file is accessible with full content check
+    console.log('Checking audio file availability...');
+    fetch(fullUrl, { method: 'GET', cache: 'no-cache' })
       .then(response => {
-        console.log('Audio file fetch check:', {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        // Check for content length
+        const contentLength = response.headers.get('content-length');
+        const contentType = response.headers.get('content-type');
+        
+        console.log('Audio file fetch successful:', {
           status: response.status,
           statusText: response.statusText,
-          contentType: response.headers.get('content-type'),
-          contentLength: response.headers.get('content-length')
+          contentType: contentType,
+          contentLength: contentLength
         });
+        
+        // Verify we have an audio file with content
+        if (!contentType?.includes('audio') && !contentType?.includes('mpeg')) {
+          console.warn('Response may not be audio:', contentType);
+        }
+        
+        if (!contentLength || parseInt(contentLength) < 1000) {
+          console.warn('Audio file may be too small:', contentLength);
+        }
+        
+        // Now that we've confirmed the file is accessible, create the audio player
+        this.createAudioPlayer(fullUrl);
+        
+        // Show success message for fetch
+        this.toastCtrl.create({
+          message: 'Audio file found. Preparing playback...',
+          duration: 2000,
+          position: 'bottom',
+          color: 'success'
+        }).then(toast => toast.present());
       })
       .catch(error => {
         console.error('Audio file fetch error:', error);
+        this.showAudioErrorToast();
       });
-
-    
-    // Try to create a test audio element to check browser audio support
+  }
+  
+  createAudioPlayer(fullUrl: string) {
+    // Check browser audio support
     try {
       const testAudio = new Audio();
+      const mp3Support = testAudio.canPlayType('audio/mpeg') || 'no';
       console.log('Browser audio support check:', {
-        mp3: testAudio.canPlayType('audio/mpeg') || 'no',
+        mp3: mp3Support,
         wav: testAudio.canPlayType('audio/wav') || 'no',
         ogg: testAudio.canPlayType('audio/ogg') || 'no'
       });
+      
+      if (mp3Support === 'no') {
+        console.warn('Browser does not support MP3 format');
+      }
     } catch (e) {
       console.error('Audio support test failed:', e);
     }
 
-    // Try to fetch the audio file directly to check if it's accessible
-    fetch(fullUrl, { method: 'HEAD' })
-      .then(response => {
-        console.log('Audio file fetch check:', {
-          status: response.status,
-          statusText: response.statusText,
-          contentType: response.headers.get('content-type'),
-          contentLength: response.headers.get('content-length')
-        });
-      })
-      .catch(error => {
-        console.error('Audio file fetch error:', error);
-      });
-
-    // Try with Howler
+    // Create Howler instance with improved settings
     this.audioPlayer = new Howl({
       src: [fullUrl],
-      html5: true, // Force HTML5 Audio to avoid Flash
+      html5: true, // Force HTML5 Audio for better compatibility
       format: ['mp3'],
       preload: true,
       volume: 1.0,
-      autoplay: false, // Don't autoplay until we're sure it's loaded
+      autoplay: false, // Don't autoplay, let user click play button
+      pool: 1, // Reduce the number of simultaneous connections
       onend: () => {
         console.log('Audio playback ended');
         this.isPlaying = false;
       },
       onload: () => {
         console.log('Audio loaded successfully');
-        // Don't autoplay, let user click play button
+        // Show success message
+        this.toastCtrl.create({
+          message: 'Audio loaded successfully. Press play to listen.',
+          duration: 2000,
+          position: 'bottom',
+          color: 'success'
+        }).then(toast => toast.present());
       },
       onloaderror: (id, error) => {
         console.error('Error loading audio with Howler:', error);
@@ -167,48 +202,54 @@ export class MusicGeneratorPage implements OnInit {
         }).then(toast => toast.present());
         
         // Fallback to native Audio API
-        console.log('Trying fallback to native Audio API');
-        const nativeAudio = new Audio();
-        
-        nativeAudio.addEventListener('canplaythrough', () => {
-          console.log('Native audio can play through');
-          nativeAudio.play()
-            .then(() => {
-              console.log('Native audio playing successfully');
-              this.isPlaying = true;
-            })
-            .catch(e => {
-              console.error('Native audio play error:', e);
-              this.showAudioErrorToast();
-            });
-        });
-        
-        nativeAudio.addEventListener('error', (e) => {
-          console.error('Native audio error:', e);
-          this.showAudioErrorToast();
-        });
-        
-        nativeAudio.src = fullUrl;
-        nativeAudio.load();
+        this.tryNativeAudioFallback(fullUrl);
       },
       onplayerror: (id, error) => {
         console.error('Error playing audio with Howler:', error);
-        this.showAudioErrorToast();
+        this.tryNativeAudioFallback(fullUrl);
       }
     });
+  }
+  
+  tryNativeAudioFallback(fullUrl: string) {
+    console.log('Trying fallback to native Audio API');
+    const nativeAudio = new Audio();
+    
+    nativeAudio.addEventListener('canplaythrough', () => {
+      console.log('Native audio can play through');
+      nativeAudio.play()
+        .then(() => {
+          console.log('Native audio playing successfully');
+          this.isPlaying = true;
+        })
+        .catch(e => {
+          console.error('Native audio play error:', e);
+          this.showAudioErrorToast();
+        });
+    });
+    
+    nativeAudio.addEventListener('error', (e) => {
+      console.error('Native audio error:', e);
+      this.showAudioErrorToast();
+    });
+    
+    nativeAudio.src = fullUrl;
+    nativeAudio.load();
   }
   
   // Helper method to show audio error toast
   private showAudioErrorToast() {
     this.toastCtrl.create({
-      message: 'Unable to play audio. Your browser may not support MP3 playback or there might be a network issue. You can download the MIDI file instead.',
+      message: 'Unable to play audio. This may be due to browser MP3 support or network issues. You can download the MIDI file instead.',
       duration: 5000,
       position: 'bottom',
       color: 'danger',
       buttons: [{
         text: 'Download MIDI',
         handler: () => {
-          this.downloadMidi();
+          if (this.generatedExercise?.midi_url) {
+            this.downloadMidi();
+          }
         }
       }]
     }).then(toast => toast.present());
