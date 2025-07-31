@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # FastAPI Music Generator Backend
+  music-generator-api:
+    build:
+      context: ./Gen AI Music LLM
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Gen AI Music LLM:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  # Ionic Frontend
+  ionic-app:
+    image: node:16
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - "8100:8100"
+    command: >
+      bash -c "npm install && 
+              npm run build && 
+              npx ionic serve --external --address=0.0.0.0"
+    depends_on:
+      - music-generator-api
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped

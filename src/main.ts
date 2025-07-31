@@ -16,6 +16,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 
 if (environment.production) {
   enableProdMode();
@@ -28,8 +29,10 @@ bootstrapApplication(AppComponent, {
       IonicModule.forRoot({}),
       provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
       provideAuth(() => getAuth()),
-      provideFirestore(() => getFirestore())
+      provideFirestore(() => getFirestore()),
+      HttpClientModule
     ),
     provideRouter(routes),
+    provideHttpClient()
   ],
 });

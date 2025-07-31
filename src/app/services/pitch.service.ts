@@ -8,7 +8,7 @@
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import * as pitchlite from 'src/app/services/pitchlite';
+import * as pitchlite from './pitchlite';
 
 const workletChunkSize = 128;
 const bigWindow = 4096;

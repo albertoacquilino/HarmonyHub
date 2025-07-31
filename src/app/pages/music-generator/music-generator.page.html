@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Music Generator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6">
+        <!-- Generation Controls -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Generate Music Exercise</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- Mode Selection -->
+            <ion-segment [(ngModel)]="generationMode">
+              <ion-segment-button value="Exercise Parameters">
+                <ion-label>Parameters</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="Exercise Prompt">
+                <ion-label>Prompt</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+
+            <!-- Parameters Mode -->
+            <div *ngIf="generationMode === 'Exercise Parameters'">
+              <ion-item>
+                <ion-label>Instrument</ion-label>
+                <ion-select [(ngModel)]="selectedInstrument">
+                  <ion-select-option *ngFor="let instrument of instruments" [value]="instrument">{{ instrument }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Level</ion-label>
+                <ion-select [(ngModel)]="selectedLevel">
+                  <ion-select-option *ngFor="let level of levels" [value]="level">{{ level }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Key</ion-label>
+                <ion-select [(ngModel)]="selectedKey">
+                  <ion-select-option *ngFor="let key of keys" [value]="key">{{ key }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Time Signature</ion-label>
+                <ion-select [(ngModel)]="selectedTimeSignature">
+                  <ion-select-option *ngFor="let ts of timeSignatures" [value]="ts">{{ ts }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Measures</ion-label>
+                <ion-select [(ngModel)]="selectedMeasures">
+                  <ion-select-option *ngFor="let m of measureOptions" [value]="m">{{ m }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+
+            <!-- Prompt Mode -->
+            <div *ngIf="generationMode === 'Exercise Prompt'">
+              <ion-item>
+                <ion-label position="stacked">Custom Prompt</ion-label>
+                <ion-textarea [(ngModel)]="customPrompt" rows="4" placeholder="Describe the exercise you want to generate..."></ion-textarea>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Measures</ion-label>
+                <ion-select [(ngModel)]="selectedMeasures">
+                  <ion-select-option *ngFor="let m of measureOptions" [value]="m">{{ m }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+
+            <ion-button expand="block" (click)="generateExercise()" class="ion-margin-top">
+              Generate Exercise
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" size-md="6">
+        <!-- Results -->
+        <ion-card *ngIf="generatedExercise">
+          <ion-card-header>
+            <ion-card-title>Generated Exercise</ion-card-title>
+            <ion-card-subtitle>
+              {{ selectedInstrument }} - {{ selectedKey }} - {{ generatedExercise.time_signature }}
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <!-- Audio Player -->
+            <div class="audio-player">
+              <ion-button fill="clear" (click)="isPlaying ? pauseAudio() : playAudio()">
+                <ion-icon slot="icon-only" [name]="isPlaying ? 'pause' : 'play'"></ion-icon>
+              </ion-button>
+              <ion-text>
+                <p>Duration: {{ generatedExercise.duration }}</p>
+              </ion-text>
+              <ion-button fill="clear" (click)="downloadMidi()">
+                <ion-icon slot="icon-only" name="download"></ion-icon>
+                <ion-label>MIDI</ion-label>
+              </ion-button>
+            </div>
+
+            <!-- Exercise Visualization -->
+            <div class="exercise-visualization">
+              <pre>{{ generatedExercise.exercise | json }}</pre>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Chat with AI Teacher -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Chat with AI Music Teacher</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="chat-container">
+              <div class="chat-messages">
+                <div *ngFor="let message of chatHistory" class="message-container">
+                  <div class="user-message">
+                    <ion-text>{{ message[0] }}</ion-text>
+                  </div>
+                  <div class="ai-message">
+                    <ion-text>{{ message[1] }}</ion-text>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-input">
+                <ion-item>
+                  <ion-input [(ngModel)]="chatMessage" placeholder="Ask about your exercise..." (keyup.enter)="sendChatMessage()"></ion-input>
+                  <ion-button slot="end" fill="clear" (click)="sendChatMessage()">
+                    <ion-icon slot="icon-only" name="send"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

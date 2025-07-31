@@ -46,6 +46,10 @@ export const routes: Routes = [
         path: 'tuner',
         loadComponent: () => import('./pages/pitchlite/pitchlite.page').then(m => m.PitchComponent),
       },
+      {
+        path: 'music-generator',
+        loadComponent: () => import('./pages/music-generator/music-generator.page').then(m => m.MusicGeneratorPage),
+      },
 
       {
         path: '',

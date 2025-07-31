@@ -6,8 +6,5 @@
  * See the LICENSE file for more details.
  */
 
-declare module 'src/app/services/pitchlite' {
-    const pitchlite: any;
-
-    export = pitchlite;
-}
+declare const pitchlite: any;
+export = pitchlite;

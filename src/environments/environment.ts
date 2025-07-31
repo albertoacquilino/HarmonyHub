@@ -20,7 +20,8 @@ export const environment = {
     messagingSenderId: "874766472837",
     appId: "1:874766472837:web:87d898a7b07de47e097bec",
     measurementId: "G-150GS2FPPB"
-  }
+  },
+  musicGeneratorApiUrl: 'http://localhost:8000'
 };
 
 /*
