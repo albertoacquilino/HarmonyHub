@@ -14,7 +14,6 @@
     "generate-docs": "npx @compodoc/compodoc -p tsconfig.json -e json -d docs",
     "extract-api": "node scripts/extract-public-api.js",
     "public-docs": "npm run generate-docs && npm run extract-api"
-
   },
   "private": true,
   "dependencies": {
@@ -40,7 +39,7 @@
     "@ionic/angular": "^7.0.0",
     "@mozartec/capacitor-microphone": "^6.0.0",
     "font-awesome": "^4.7.0",
-    "howler": "^2.2.3",
+    "howler": "^2.2.4",
     "ionicons": "^7.0.0",
     "lodash": "^4.17.21",
     "rxjs": "~7.5.0",

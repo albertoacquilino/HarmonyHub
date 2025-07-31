@@ -42,6 +42,16 @@
             ></ion-icon>
             Tuner
         </ion-tab-button>
+        <ion-tab-button
+            tab="music-generator"
+            [disabled]="isDisabled()"
+        >
+            <ion-icon
+                name="musical-note"
+                style="margin-bottom: 2px;"
+            ></ion-icon>
+            AI Music
+        </ion-tab-button>
         <!-- <ion-tab-button (click)="goToProfile()" [disabled]="isDisabled()">
       <ion-icon name="person-circle-outline" style="margin-bottom: 2px;"></ion-icon>
       User

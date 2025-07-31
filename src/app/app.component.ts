@@ -12,6 +12,7 @@ import { StatusBar } from '@capacitor/status-bar';
 import { Microphone, PermissionStatus } from '@mozartec/capacitor-microphone';
 import { PitchService } from './services/pitch.service';
 import { KeepAwake } from '@capacitor-community/keep-awake';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
