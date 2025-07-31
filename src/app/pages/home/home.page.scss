@@ -107,9 +107,23 @@ ion-modal {
     width: 100px !important;
     max-width: 100px !important;
   }
+  .oboe {
+    width: 100px !important;
+    max-width: 100px !important;
+  }
 }
 .clarinet {
   grid-area: clarinet;
+  display: flex;
+  padding: 1em;
+  align-items: center;
+  justify-content: center;
+  width:140px;
+  max-width:140px;
+  margin-left: 50px;
+}
+.oboe {
+  grid-area: oboe;
   display: flex;
   padding: 1em;
   align-items: center;
@@ -258,7 +272,9 @@ ion-segment-button {
 #clarinet-position{
   width:10%;
 }
-
+#oboe-position{
+  width:10%;
+}
 #score-image {
   width: 100%;
   //margin: 10px;
@@ -300,6 +316,10 @@ ion-segment-button {
 
   @media screen and (max-height: 600px)  {
     .clarinet{
+      max-width: 150px;
+      margin-left:-40px;
+    }
+    .oboe{
       max-width: 150px;
       margin-left:-40px;
     }

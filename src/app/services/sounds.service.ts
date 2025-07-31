@@ -10,7 +10,7 @@ import { Injectable } from "@angular/core";
 import { BeatService } from "./beat.service";
 import { AppBeat } from '../models/appbeat.types';
 import { Howl } from "howler";
-import { TRUMPET_NOTES, CLARINET_NOTES } from "../constants";
+import { TRUMPET_NOTES, CLARINET_NOTES,OBOE_NOTES} from "../constants";
 
 // Predefined beat sounds
 export const BEAT_SOUNDS = [
@@ -64,7 +64,18 @@ export class SoundsService {
      * @returns void
      */
     private preloadSounds() {
-        const notesToLoad = this.selectedInstrument === 'trumpet' ? TRUMPET_NOTES : CLARINET_NOTES;
+        let notesToLoad;
+
+    if (this.selectedInstrument === 'trumpet') {
+        notesToLoad = TRUMPET_NOTES;
+    } else if (this.selectedInstrument === 'clarinet') {
+        notesToLoad = CLARINET_NOTES;
+    } else if (this.selectedInstrument === 'oboe') {
+        notesToLoad = OBOE_NOTES;
+    } else {
+        console.warn('Unknown instrument:', this.selectedInstrument);
+        return;
+    }
         for (let sound of BEAT_SOUNDS) {
             sound.load(); // Load beat sounds
         }

@@ -28,7 +28,7 @@ import { RefFreqService } from 'src/app/services/ref-freq.service';
 import { SoundsService } from 'src/app/services/sounds.service';
 import { TabsService } from 'src/app/services/tabs.service';
 import { scoreFromNote } from 'src/app/utils/score.utils';
-import { DYNAMICS, INITIAL_NOTE, MAXCYCLES, MAXREFFREQUENCY, MAXTEMPO, MINREFFREQUENCY, MINTEMPO, TRUMPET_NOTES, CLARINET_NOTES, POSITIONS, TRUMPET_BTN, CLARINET_POSITIONS } from '../../constants';
+import { DYNAMICS, INITIAL_NOTE, MAXCYCLES, MAXREFFREQUENCY, MAXTEMPO, MINREFFREQUENCY, MINTEMPO, TRUMPET_NOTES, CLARINET_NOTES, POSITIONS, TRUMPET_BTN, CLARINET_POSITIONS,OBOE_NOTES,OBOE_POSITIONS} from '../../constants';
 import { BeatService } from '../../services/beat.service';
 
 @Component({
@@ -140,7 +140,7 @@ export class HomePage implements OnInit {
    * The clarinet position image path.
    */
   clarinetPosition = "assets/images/clarinet_positions/A3.svg";
-
+  oboePosition = "assets/images/oboe_positions/A4.svg";
   /**
    * The score image path.
    */
@@ -217,6 +217,8 @@ export class HomePage implements OnInit {
       return TRUMPET_NOTES; // Use trumpet notes
     } else if (instrument === 'clarinet') {
       return CLARINET_NOTES; // Use clarinet notes
+    }else if(instrument === 'oboe'){
+      return OBOE_NOTES
     }
     return []; // Return an empty array if no valid instrument is selected
   }

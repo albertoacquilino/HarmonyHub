@@ -9,7 +9,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { TRUMPET_NOTES, CLARINET_NOTES } from 'src/app/constants';
+import { TRUMPET_NOTES, CLARINET_NOTES,OBOE_NOTES } from 'src/app/constants';
 import { ScrollImageComponent } from '../scroll-image-selector/scroll-image-selector.component';
 
 /**
@@ -207,7 +207,18 @@ export class NoteSelectorComponent implements OnInit {
    * It sets the noteImages array to the corresponding images for the selected instrument.
    */
   private updateNoteImages() {
-    const notes = this._selectedInstrument === 'trumpet' ? TRUMPET_NOTES : CLARINET_NOTES;
+    let notes;
+  
+    if (this._selectedInstrument === 'trumpet') {
+      notes = TRUMPET_NOTES;
+    } else if (this._selectedInstrument === 'clarinet') {
+      notes = CLARINET_NOTES;
+    } else if (this._selectedInstrument === 'oboe') {
+      notes = OBOE_NOTES;
+    } else {
+      console.warn('Unknown instrument:', this._selectedInstrument);
+      return;
+    }
     this.noteImages = notes.map(note => `assets/images/clarinet_notes_images/_${note[0]}.svg`);
   }
 
