@@ -14,11 +14,13 @@
 
 .tuner-img {
   width: 100%;
+  max-height: 200px;
 }
 
 @media screen and (orientation: landscape) {
   .tuner-img {
-      width: 250px;
+      width: 200px;
       height: auto;
+      transform: translateX(-40px);
   }
 }

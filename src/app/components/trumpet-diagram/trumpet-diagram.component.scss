@@ -41,5 +41,19 @@
     .trumpet-img {
         width: 250px;
         height: auto;
+        transform: translateX(-60px) translateY(20px); 
     }
 }
+@media screen and (min-height:720px) {
+    .trumpet-img {
+        width: 200px;
+        height: auto;
+       // transform: translateX(-60px) translateY(20px); 
+    }
+}
+// @media screen and (orientation: landscape) and (max-height: 600px) {
+//     .trumpet-img {
+//         width: 300px;
+//         transform: translateX(-60px) translateY(20px); 
+//     }
+// }

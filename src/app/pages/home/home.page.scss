@@ -15,7 +15,7 @@ ion-modal {
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding: 5px;
+  padding: 10px;
   margin: 0px 8px 0px 8px;
   border-radius: 6px 6px 0px 0px;
 }
@@ -59,7 +59,7 @@ ion-modal {
 }
 
 .wrapper {
-  //background-color: red;
+  background-color: white;
   width: 650px;
   height: 460px;
   overflow: hidden;
@@ -84,6 +84,7 @@ ion-modal {
   margin: 0;
   margin-bottom: 0.2em;
   font-size: 3em;
+  transform: translateX(-20px) translateY(-20px);
 }
 
 .metronome-bullet h3 {
@@ -100,14 +101,36 @@ ion-modal {
   justify-content: center;
   max-width: 400px;
 }
+/* ✅ SPECIFIC OVERRIDE FOR EXACT 320 x 480 */
+@media screen and (width: 320px) and (height: 480px) {
+  .clarinet {
+    width: 100px !important;
+    max-width: 100px !important;
+  }
+  .oboe {
+    width: 100px !important;
+    max-width: 100px !important;
+  }
+}
 .clarinet {
   grid-area: clarinet;
   display: flex;
   padding: 1em;
   align-items: center;
   justify-content: center;
-  max-width: 100px;
-  margin-left: 150px;
+  width:140px;
+  max-width:140px;
+  margin-left: 50px;
+}
+.oboe {
+  grid-area: oboe;
+  display: flex;
+  padding: 1em;
+  align-items: center;
+  justify-content: center;
+  width:140px;
+  max-width:140px;
+  margin-left: 50px;
 }
 .chromatic-tuner {
   grid-area: chromatic-tuner;
@@ -130,13 +153,13 @@ ion-segment-button {
 
 .score {
   margin-top:30px;
-  margin-bottom:10px;
+  margin-bottom:-20px;
   grid-area: score;
   text-align: center;
 
   app-score {
-    min-width: 100px;
-    min-height: 100px;
+    min-width: 150px;
+    min-height: 90px;
     max-width: 600px;
   }
 }
@@ -177,10 +200,10 @@ ion-segment-button {
 .controls {
   display: flex;
   //grid-area: controls;
-  background-color: gray;
-  padding: 10px;
-  margin: 6px;
-  border-radius: 6px;
+  background-color: white;
+  padding: 18px;
+  //margin: 6px;
+  //border-radius: 6px;
   justify-content: center;
 }
 
@@ -249,7 +272,9 @@ ion-segment-button {
 #clarinet-position{
   width:10%;
 }
-
+#oboe-position{
+  width:10%;
+}
 #score-image {
   width: 100%;
   //margin: 10px;
@@ -289,7 +314,15 @@ ion-segment-button {
     margin-top: 0px;
   }
 
-  @media screen and (max-height: 600px) {
+  @media screen and (max-height: 600px)  {
+    .clarinet{
+      max-width: 150px;
+      margin-left:-40px;
+    }
+    .oboe{
+      max-width: 150px;
+      margin-left:-40px;
+    }
     .landscape-d-none {
       display: none;
     }
@@ -299,5 +332,21 @@ ion-segment-button {
     .top-middle-container {
       display: flex;
     }
+  .score {
+    margin-left: -100px; /* Shift left in landscape */
+    max-width:250px ;
   }
+  }
+}
+html, body, .ion-app, .ion-page, #container, .wrapper, ion-modal {
+  background-color: white !important;
+  min-width: 100vw;
+  min-height:90vh;
+  color: black;
+  margin: 0;
+  padding: 0 !important;
+  box-sizing: border-box;
+  overflow: hidden !important;
+  position: fixed !important; /* prevent scroll via body/html */
+ overscroll-behavior: none !important; /* block iOS/Android pull-bounce */
 }

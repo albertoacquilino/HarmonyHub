@@ -28,6 +28,11 @@
               Clarinet
             </ion-label>
           </ion-select-option>
+          <ion-select-option value="oboe">
+            <ion-label>
+              Oboe
+            </ion-label>
+          </ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -41,9 +46,13 @@
             <ion-segment-button *ngIf="selectedInstrument === 'trumpet'" value="trumpet">
               <ion-label>TRUMPET</ion-label>
             </ion-segment-button>
+            
             <ion-segment-button *ngIf="selectedInstrument === 'clarinet'" value="clarinet">
               <ion-label>CLARINET</ion-label>
-            </ion-segment-button>         
+            </ion-segment-button>  
+            <ion-segment-button *ngIf="selectedInstrument === 'oboe'" value="oboe">
+              <ion-label>OBOE</ion-label>
+            </ion-segment-button>        
             <ion-segment-button value="tuner">
               <ion-label>TUNER</ion-label>
             </ion-segment-button>
@@ -102,6 +111,12 @@
                 <img [src]="clarinetPosition" alt="Clarinet Position" />
               </div>
             </ng-container>
+            <ng-container *ngIf="selectedInstrument === 'oboe' && mode === 'oboe'">
+              <div class="oboe">
+               
+                <img [src]="oboePosition" alt="Oboe Position" />
+              </div>
+            </ng-container>
 
           </div>
           <!--MIDDLE-->
@@ -124,7 +139,7 @@
 
             <div class="low-note-wrapper">
               <note-selector 
-                label="Low Note:"
+                label="Lowest Note:"
                 [note]="lowNote" 
                 [selectedInstrument]="selectedInstrument"
                 [useFlatsAndSharps]="useFlatsAndSharps"
@@ -134,7 +149,7 @@
 
             <div class="high-note-wrapper">
               <note-selector 
-                label="High Note:"
+                label="Highest Note:"
                 [note]="highNote"
                 [selectedInstrument]="selectedInstrument"
                 [useFlatsAndSharps]="useFlatsAndSharps"
