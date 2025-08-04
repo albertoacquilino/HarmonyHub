@@ -25,7 +25,12 @@ import { RenderContext, Renderer } from 'vexflow';
  */
 @Component({
   selector: 'score-view',
-  template: `<div id="score" style="background-color: white;transform: scale(0.9);"></div>`,
+  template: `
+    <div id="score" style="background-color: white; transform: scale(0.9);"></div>
+    <div *ngIf="noteNames.length > 0" style="margin-top: 10px;">
+      <strong>Note:</strong> {{ noteNames[1] }}
+    </div>
+  `,
   styleUrls: [],
   standalone: true,
   imports: [CommonModule]
@@ -47,10 +52,11 @@ export class ScoreViewComponent implements AfterViewInit {
   @Input() set score(_score: Score) {
     this.score$.next(_score);
   }
-
+  @Input() instrument: string = 'clarinet';
   private _renderer!: Renderer;
   private _context!: RenderContext;
-
+  // New property to hold note names
+  noteNames: string[] = [];
   /**
    * Constructor for the ScoreViewComponent.
    * 
@@ -66,8 +72,8 @@ export class ScoreViewComponent implements AfterViewInit {
    */
   setSize() {
     const size = {
-      width: this.hostElement.nativeElement.getBoundingClientRect().width+120,
-      height: this.hostElement.nativeElement.getBoundingClientRect().height+53
+      width: this.hostElement.nativeElement.getBoundingClientRect().width,
+      height: this.hostElement.nativeElement.getBoundingClientRect().height
     };
 
     this.size$.next(size);
@@ -138,8 +144,9 @@ export class ScoreViewComponent implements AfterViewInit {
     const measureWidth = (this.size$.value.width - 20) / score.measures.length;
 
     let staveMeasure = null;
+    this.noteNames = []; // Reset note names for the new score
+
     for (const [index, measure] of score.measures.entries()) {
-      // Create the first stave measure
       if (staveMeasure === null) {
         staveMeasure = new Flow.Stave(10, 20, measureWidth);
         if (score.clef) {
@@ -161,7 +168,7 @@ export class ScoreViewComponent implements AfterViewInit {
           score.dynamicPosition = 1;
         }
         if (score.dynamicPosition === index + 1) {
-          const note = staveMeasure.setText(score.dynamic,
+          staveMeasure.setText(score.dynamic,
             Flow.Modifier.Position.BELOW, {
             shift_y: 30,
             shift_x: (-measureWidth / 2) + 10,
@@ -173,9 +180,15 @@ export class ScoreViewComponent implements AfterViewInit {
         .setContext(this._context)
         .draw();
 
-      const notesMeasure = measure
-        .map((measure) => generateNotes(measure.notes, measure.duration));
+      const notesMeasure = measure.map((measure) => generateNotes(measure.notes, measure.duration));
 
+      notesMeasure.forEach((note) => {
+        let noteName = note.keys[0]; // Get the note name
+         // Extract only the note part (before the '/')
+         const extractedNoteName = noteName.split('/')[0]; // Get the note name without octave
+         this.noteNames.push(extractedNoteName); 
+    });
+      
       Flow.Formatter.FormatAndDraw(this._context, staveMeasure, notesMeasure);
     }
   }
