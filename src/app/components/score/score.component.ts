@@ -28,7 +28,7 @@ import { RenderContext, Renderer } from 'vexflow';
   template: `
     <div id="score" style="background-color: white; transform: scale(0.9);"></div>
     <div *ngIf="noteNames.length > 0" style="margin-top: 10px;">
-      <strong>Note:</strong> {{ noteNames[1] }}
+      <strong>{{ noteNames[1] }}</strong> 
     </div>
   `,
   styleUrls: [],
@@ -53,6 +53,7 @@ export class ScoreViewComponent implements AfterViewInit {
     this.score$.next(_score);
   }
   @Input() instrument: string = 'clarinet';
+  @Input() language: string = 'en';
   private _renderer!: Renderer;
   private _context!: RenderContext;
   // New property to hold note names
@@ -185,10 +186,82 @@ export class ScoreViewComponent implements AfterViewInit {
       notesMeasure.forEach((note) => {
         let noteName = note.keys[0]; // Get the note name
          // Extract only the note part (before the '/')
-         const extractedNoteName = noteName.split('/')[0]; // Get the note name without octave
-         this.noteNames.push(extractedNoteName); 
-    });
-      
+        const extractedNoteName = noteName.split('/')[0]; // Get the note name without octave
+        //  this.noteNames.push(extractedNoteName); 
+        // Language-based note name conversion
+        if (this.language === 'it') {
+          switch (extractedNoteName) {
+            case 'C':
+              this.noteNames.push('Do');
+              break;
+            case 'D':
+              this.noteNames.push('Re');
+              break;
+            case 'E':
+              this.noteNames.push('Mi');
+              break;
+            case 'F':
+              this.noteNames.push('Fa');
+              break;
+            case 'G':
+              this.noteNames.push('Sol');
+              break;
+            case 'A':
+              this.noteNames.push('La');
+              break;
+            case 'B':
+              this.noteNames.push('Si');
+              break;
+              case 'Cb':
+              this.noteNames.push('Do b');
+              break;
+            case 'Db':
+              this.noteNames.push('Re b');
+              break;
+            case 'Eb':
+              this.noteNames.push('Mi b');
+              break;
+            case 'Fb':
+              this.noteNames.push('Fa b');
+              break;
+            case 'Gb':
+              this.noteNames.push('Sol b');
+              break;
+            case 'Ab':
+              this.noteNames.push('La b');
+              break;
+            case 'Bb':
+              this.noteNames.push('Si b');
+              break;
+              case 'C#':
+              this.noteNames.push('Do #');
+              break;
+            case 'D#':
+              this.noteNames.push('Re #');
+              break;
+            case 'E#':
+              this.noteNames.push('Mi #');
+              break;
+            case 'F#':
+              this.noteNames.push('Fa #');
+              break;
+            case 'G#':
+              this.noteNames.push('Sol #');
+              break;
+            case 'A#':
+              this.noteNames.push('La #');
+              break;
+            case 'B#':
+              this.noteNames.push('Si #');
+              break;
+            default:
+              this.noteNames.push(extractedNoteName); // Fallback to original name
+          }
+        } else {
+          // Default to English note names
+          this.noteNames.push(extractedNoteName);
+        }
+      }); 
       Flow.Formatter.FormatAndDraw(this._context, staveMeasure, notesMeasure);
     }
   }

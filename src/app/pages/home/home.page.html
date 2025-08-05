@@ -69,7 +69,13 @@
             <b>&flat; &amp; &sharp;</b>
           </ion-toggle>
         </ion-item>
-
+        <ion-item [disabled]="isPlaying()">
+          <ion-label>Language</ion-label>
+          <ion-select (ionChange)=" changeLanguage ($event)" value="{{language}}">
+          <ion-select-option value="en">English</ion-select-option> 
+          <ion-select-option value="it">Italian</ion-select-option>
+          </ion-select> 
+        </ion-item>
         <ion-item>
           <ion-toggle [checked]="useDynamics" (ionChange)="switchUseDynamics($event)" [disabled]="isPlaying()">
             Dynamics
@@ -122,7 +128,7 @@
           <!--MIDDLE-->
           <div class="middle" *ngIf="isPlaying()">
             <div class="score">
-              <score-view id="score-image" [score]="score"></score-view>
+              <score-view id="score-image" [score]="score" [language]="language"></score-view>
             </div>
           </div>
         </div>

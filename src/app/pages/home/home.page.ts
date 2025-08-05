@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
    * @default 'trumpet'
    */
   selectedInstrument = 'trumpet';
-
+  language: string = 'en'; // Default language
   /**
    * Array of notes corresponding to the selected instrument.
    */
@@ -780,6 +780,11 @@ export class HomePage implements OnInit {
     window.addEventListener('load', () => this.scaleContent());
 
     setTimeout(() => this.scaleContent(), 250);
+  }
+  changeLanguage(event: any) {
+    this.language = event.detail.value; // Update the language based on the selected value
+    localStorage.setItem('language', this.language); // Optionally save the language to local storage
+    console.log('Language:', this.language);
   }
 }
 
