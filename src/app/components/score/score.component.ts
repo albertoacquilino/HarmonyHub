@@ -264,6 +264,42 @@ export class ScoreViewComponent implements AfterViewInit {
       }); 
       Flow.Formatter.FormatAndDraw(this._context, staveMeasure, notesMeasure);
     }
+
+// // After all measures drawn (i.e. after your for loop)
+// setTimeout(() => {
+//   const svg = document.querySelector("#score > svg");
+//   if (!svg) return;
+//   svg.querySelectorAll("text").forEach((textEl: any) => {
+//     const val = textEl.textContent?.trim();
+//     if (val === "mf" || val === "f" || val === "p") {
+//       textEl.setAttribute("font-style", "italic");
+//       textEl.setAttribute("font-weight", "bold");
+//       // textEl.setAttribute("font-size", "22px");
+//     }
+//   });
+// }, 1);
+// === MutationObserver version, no need for setTimeout! ===
+const div = document.getElementById("score");
+if (!div) return;
+
+// Observer callback function
+const observer = new MutationObserver((mutations, obs) => {
+  const svg = div.querySelector("svg");
+  if (svg) {
+    svg.querySelectorAll("text").forEach((textEl: any) => {
+      const val = textEl.textContent?.trim();
+      if (val === "mf" || val === "f" || val === "p") {
+        textEl.setAttribute("font-style", "italic");
+        textEl.setAttribute("font-weight", "bold");
+      }
+    });
+    obs.disconnect(); // Stop observing once done!
+  }
+});
+
+observer.observe(div, { childList: true, subtree: true });
+
+
   }
 }
 

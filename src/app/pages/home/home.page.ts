@@ -499,7 +499,7 @@ export class HomePage implements OnInit {
     if (this.useDynamics) {
       const dynamic = DYNAMICS[Math.floor(Math.random() * DYNAMICS.length)];
       this._sounds.setVolume(dynamic.volume);
-      this.score = scoreFromNote(scoreImage, dynamic.label);
+      this.score = scoreFromNote(scoreImage,this.selectedInstrument, dynamic.label);
     } else {
       this.score = scoreFromNote(scoreImage, this.selectedInstrument);
     }
