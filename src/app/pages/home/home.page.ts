@@ -485,6 +485,10 @@ export class HomePage implements OnInit {
     const clarinetImg = CLARINET_POSITIONS[note];
     this.clarinetPosition = `assets/images/clarinet_positions/${clarinetImg}.svg`;
   }
+    updateOboePosition(note: number) {
+    const oboeImg = OBOE_POSITIONS[note];
+    this.oboePosition = `assets/images/oboe_positions/${oboeImg}.svg`;
+  }
 
   /**
    * Updates the score image based on the given note.
@@ -534,6 +538,8 @@ export class HomePage implements OnInit {
           this.updateTrumpetPosition(this.currentNote);
         } else if (this.selectedInstrument === "clarinet") {
           this.updateClarinetPosition(this.currentNote);
+        }else if(this.selectedInstrument === "oboe"){
+          this.updateOboePosition(this.currentNote);
         }
       }
 
