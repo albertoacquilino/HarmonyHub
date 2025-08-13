@@ -54,7 +54,7 @@ export class HomePage implements OnInit {
    * @default 'trumpet'
    */
   selectedInstrument = 'trumpet';
-
+  language: string = 'en'; // Default language
   /**
    * Array of notes corresponding to the selected instrument.
    */
@@ -485,6 +485,10 @@ export class HomePage implements OnInit {
     const clarinetImg = CLARINET_POSITIONS[note];
     this.clarinetPosition = `assets/images/clarinet_positions/${clarinetImg}.svg`;
   }
+    updateOboePosition(note: number) {
+    const oboeImg = OBOE_POSITIONS[note];
+    this.oboePosition = `assets/images/oboe_positions/${oboeImg}.svg`;
+  }
 
   /**
    * Updates the score image based on the given note.
@@ -499,7 +503,7 @@ export class HomePage implements OnInit {
     if (this.useDynamics) {
       const dynamic = DYNAMICS[Math.floor(Math.random() * DYNAMICS.length)];
       this._sounds.setVolume(dynamic.volume);
-      this.score = scoreFromNote(scoreImage, dynamic.label);
+      this.score = scoreFromNote(scoreImage,this.selectedInstrument, dynamic.label);
     } else {
       this.score = scoreFromNote(scoreImage, this.selectedInstrument);
     }
@@ -534,6 +538,8 @@ export class HomePage implements OnInit {
           this.updateTrumpetPosition(this.currentNote);
         } else if (this.selectedInstrument === "clarinet") {
           this.updateClarinetPosition(this.currentNote);
+        }else if(this.selectedInstrument === "oboe"){
+          this.updateOboePosition(this.currentNote);
         }
       }
 
@@ -780,6 +786,11 @@ export class HomePage implements OnInit {
     window.addEventListener('load', () => this.scaleContent());
 
     setTimeout(() => this.scaleContent(), 250);
+  }
+  changeLanguage(event: any) {
+    this.language = event.detail.value; // Update the language based on the selected value
+    localStorage.setItem('language', this.language); // Optionally save the language to local storage
+    console.log('Language:', this.language);
   }
 }
 

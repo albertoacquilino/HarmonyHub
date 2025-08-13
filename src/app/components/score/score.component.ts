@@ -25,7 +25,12 @@ import { RenderContext, Renderer } from 'vexflow';
  */
 @Component({
   selector: 'score-view',
-  template: `<div id="score" style="background-color: white;transform: scale(0.9);"></div>`,
+  template: `
+    <div id="score" style="background-color: white; transform: scale(0.9);"></div>
+    <div *ngIf="noteNames.length > 0" style="margin-top: 10px;">
+      <strong>{{ noteNames[1] }}</strong> 
+    </div>
+  `,
   styleUrls: [],
   standalone: true,
   imports: [CommonModule]
@@ -47,10 +52,12 @@ export class ScoreViewComponent implements AfterViewInit {
   @Input() set score(_score: Score) {
     this.score$.next(_score);
   }
-
+  @Input() instrument: string = 'clarinet';
+  @Input() language: string = 'en';
   private _renderer!: Renderer;
   private _context!: RenderContext;
-
+  // New property to hold note names
+  noteNames: string[] = [];
   /**
    * Constructor for the ScoreViewComponent.
    * 
@@ -138,8 +145,9 @@ export class ScoreViewComponent implements AfterViewInit {
     const measureWidth = (this.size$.value.width - 20) / score.measures.length;
 
     let staveMeasure = null;
+    this.noteNames = []; // Reset note names for the new score
+
     for (const [index, measure] of score.measures.entries()) {
-      // Create the first stave measure
       if (staveMeasure === null) {
         staveMeasure = new Flow.Stave(10, 20, measureWidth);
         if (score.clef) {
@@ -161,7 +169,7 @@ export class ScoreViewComponent implements AfterViewInit {
           score.dynamicPosition = 1;
         }
         if (score.dynamicPosition === index + 1) {
-          const note = staveMeasure.setText(score.dynamic,
+          staveMeasure.setText(score.dynamic,
             Flow.Modifier.Position.BELOW, {
             shift_y: 30,
             shift_x: (-measureWidth / 2) + 10,
@@ -173,11 +181,125 @@ export class ScoreViewComponent implements AfterViewInit {
         .setContext(this._context)
         .draw();
 
-      const notesMeasure = measure
-        .map((measure) => generateNotes(measure.notes, measure.duration));
+      const notesMeasure = measure.map((measure) => generateNotes(measure.notes, measure.duration));
 
+      notesMeasure.forEach((note) => {
+        let noteName = note.keys[0]; // Get the note name
+         // Extract only the note part (before the '/')
+        const extractedNoteName = noteName.split('/')[0]; // Get the note name without octave
+        //  this.noteNames.push(extractedNoteName); 
+        // Language-based note name conversion
+        if (this.language === 'it') {
+          switch (extractedNoteName) {
+            case 'C':
+              this.noteNames.push('Do');
+              break;
+            case 'D':
+              this.noteNames.push('Re');
+              break;
+            case 'E':
+              this.noteNames.push('Mi');
+              break;
+            case 'F':
+              this.noteNames.push('Fa');
+              break;
+            case 'G':
+              this.noteNames.push('Sol');
+              break;
+            case 'A':
+              this.noteNames.push('La');
+              break;
+            case 'B':
+              this.noteNames.push('Si');
+              break;
+              case 'Cb':
+              this.noteNames.push('Do b');
+              break;
+            case 'Db':
+              this.noteNames.push('Re b');
+              break;
+            case 'Eb':
+              this.noteNames.push('Mi b');
+              break;
+            case 'Fb':
+              this.noteNames.push('Fa b');
+              break;
+            case 'Gb':
+              this.noteNames.push('Sol b');
+              break;
+            case 'Ab':
+              this.noteNames.push('La b');
+              break;
+            case 'Bb':
+              this.noteNames.push('Si b');
+              break;
+              case 'C#':
+              this.noteNames.push('Do #');
+              break;
+            case 'D#':
+              this.noteNames.push('Re #');
+              break;
+            case 'E#':
+              this.noteNames.push('Mi #');
+              break;
+            case 'F#':
+              this.noteNames.push('Fa #');
+              break;
+            case 'G#':
+              this.noteNames.push('Sol #');
+              break;
+            case 'A#':
+              this.noteNames.push('La #');
+              break;
+            case 'B#':
+              this.noteNames.push('Si #');
+              break;
+            default:
+              this.noteNames.push(extractedNoteName); // Fallback to original name
+          }
+        } else {
+          // Default to English note names
+          this.noteNames.push(extractedNoteName);
+        }
+      }); 
       Flow.Formatter.FormatAndDraw(this._context, staveMeasure, notesMeasure);
     }
+
+// // After all measures drawn (i.e. after your for loop)
+// setTimeout(() => {
+//   const svg = document.querySelector("#score > svg");
+//   if (!svg) return;
+//   svg.querySelectorAll("text").forEach((textEl: any) => {
+//     const val = textEl.textContent?.trim();
+//     if (val === "mf" || val === "f" || val === "p") {
+//       textEl.setAttribute("font-style", "italic");
+//       textEl.setAttribute("font-weight", "bold");
+//       // textEl.setAttribute("font-size", "22px");
+//     }
+//   });
+// }, 1);
+// === MutationObserver version, no need for setTimeout! ===
+const div = document.getElementById("score");
+if (!div) return;
+
+// Observer callback function
+const observer = new MutationObserver((mutations, obs) => {
+  const svg = div.querySelector("svg");
+  if (svg) {
+    svg.querySelectorAll("text").forEach((textEl: any) => {
+      const val = textEl.textContent?.trim();
+      if (val === "mf" || val === "f" || val === "p") {
+        textEl.setAttribute("font-style", "italic");
+        textEl.setAttribute("font-weight", "bold");
+      }
+    });
+    obs.disconnect(); // Stop observing once done!
+  }
+});
+
+observer.observe(div, { childList: true, subtree: true });
+
+
   }
 }
 

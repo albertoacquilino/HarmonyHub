@@ -55,11 +55,8 @@ export function scoreFromNote(meiNote: string, instrument: string, dynamic: stri
     let scoreNote;
     const note = meiNote[0];
     const octave = meiNote[1];
-    // if (instrument === "clarinet") {
-        scoreNote = note + '/' + (Number(octave));
-    // } else {
-    //     scoreNote = note + '/' + (Number(octave) + 2);
-    // }
+    scoreNote = note + '/' + (Number(octave));
+
     
     if (meiNote.length == 3) {
         const accidental = meiNote[2] == 's' ? '#' : 'b';

@@ -63,8 +63,33 @@ export class SoundsService {
      * Preloads all the sounds used in the app based on the selected instrument.
      * @returns void
      */
-    private preloadSounds() {
-        let notesToLoad;
+    // private preloadSounds() {
+    //     let notesToLoad;
+
+    // if (this.selectedInstrument === 'trumpet') {
+    //     notesToLoad = TRUMPET_NOTES;
+    // } else if (this.selectedInstrument === 'clarinet') {
+    //     notesToLoad = CLARINET_NOTES;
+    // } else if (this.selectedInstrument === 'oboe') {
+    //     notesToLoad = OBOE_NOTES;
+    // } else {
+    //     console.warn('Unknown instrument:', this.selectedInstrument);
+    //     return;
+    // }
+    //     for (let sound of BEAT_SOUNDS) {
+    //         sound.load(); // Load beat sounds
+    //     }
+    //     this.preloadedNotes = [];
+    //     for (let i = 0; i < notesToLoad.length; i++) {
+    //         const note = notesToLoad[i];
+    //         const soundFile = note[0];
+
+    //         const audio = new Howl({ src: [`assets/sounds/${this.selectedInstrument}_note_sounds/${soundFile}.wav`] });
+    //         this.preloadedNotes.push(audio); // Store preloaded note sounds
+    //     }
+    // }
+    private async preloadSounds() {
+    let notesToLoad;
 
     if (this.selectedInstrument === 'trumpet') {
         notesToLoad = TRUMPET_NOTES;
@@ -76,18 +101,42 @@ export class SoundsService {
         console.warn('Unknown instrument:', this.selectedInstrument);
         return;
     }
-        for (let sound of BEAT_SOUNDS) {
-            sound.load(); // Load beat sounds
-        }
-        this.preloadedNotes = [];
-        for (let i = 0; i < notesToLoad.length; i++) {
-            const note = notesToLoad[i];
-            const soundFile = note[0];
 
-            const audio = new Howl({ src: [`assets/sounds/${this.selectedInstrument}_note_sounds/${soundFile}.wav`] });
-            this.preloadedNotes.push(audio); // Store preloaded note sounds
-        }
+    // Load beat sounds
+    for (let sound of BEAT_SOUNDS) {
+        sound.load();
     }
+
+    this.preloadedNotes = [];
+
+    for (let i = 0; i < notesToLoad.length; i++) {
+        let soundFile = notesToLoad[i][0];
+        let filePath = `assets/sounds/${this.selectedInstrument}_note_sounds/${soundFile}.wav`;
+
+        // Check if note[0] exists, otherwise try note[1]
+        const exists = await this.fileExists(filePath);
+        if (!exists && notesToLoad[i][1]) {
+            soundFile = notesToLoad[i][1];
+            filePath = `assets/sounds/${this.selectedInstrument}_note_sounds/${soundFile}.wav`;
+        }
+
+        const audio = new Howl({ src: [filePath] });
+        this.preloadedNotes.push(audio);
+    }
+}
+
+/**
+ * Utility function to check if a file exists
+ */
+private async fileExists(url: string): Promise<boolean> {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok;
+    } catch {
+        return false;
+    }
+}
+
         /**
      * Sets the instrument for sound playback and reloads the corresponding sounds.
      * @param {string} instrument - The name of the instrument to set (e.g., 'trumpet', 'clarinet').
