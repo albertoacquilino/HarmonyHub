@@ -107,12 +107,50 @@ python cli.py info
 
 - **visualizer.py**: Generate piano roll visualizations
 
+### processing/notation
+
+- **constants.py**: Configuration for sheet music rendering (clefs, durations, PDF/SVG settings)
+- **sheet_music.py**: Convert JSON exercises to music21 Score objects and render to PDF/SVG/PNG
+
+## Sheet Music Generation
+
+HarmonyHub now includes professional sheet music generation using the **music21** library with optional **LilyPond** backend for high-quality PDF output.
+
+### Features
+
+- **Multiple Output Formats**: PDF, SVG, PNG
+- **Professional Quality**: Uses LilyPond when available, falls back to music21
+- **Automatic Clef Selection**: Correct clef per instrument (treble for wind/strings, grand staff for piano)
+- **Full Notation Support**: Key signatures, time signatures, tempos, correct note durations
+- **Error Handling**: Graceful degradation if LilyPond unavailable
+
+### Usage Examples
+
+Generate exercise with sheet music:
+
+```bash
+# Generate PDF sheet music
+python cli.py generate --instrument Trumpet --level Intermediate --output-format pdf
+
+# Generate all formats (JSON, MIDI, MP3, PDF, SVG, PNG)
+python cli.py generate --instrument Piano --output-format all
+
+# Convert existing JSON to PDF
+python cli.py convert --input-file exercise.json --output-format pdf
+```
+
 ## Testing
 
 Run the test suite:
 
 ```bash
 python -m unittest discover tests
+```
+
+For sheet music tests specifically:
+
+```bash
+python -m pytest tests/processing/test_sheet_music.py -v
 ```
 
 ## Error Handling

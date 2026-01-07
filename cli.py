@@ -25,6 +25,7 @@ from lib.music_generation.theory import clean_note_string
 from processing.midi.converter import json_to_midi, create_metronome_midi
 from processing.audio.converter import midi_to_mp3, create_metronome_audio
 from processing.visualization.visualizer import create_visualization
+from processing.notation.sheet_music import json_to_music21_score, render_score_to_pdf, render_score_to_image
 
 # Create Typer app
 app = typer.Typer(help="Adaptive Music Exercise Generator CLI")
@@ -71,6 +72,9 @@ class OutputFormat(str, Enum):
     JSON = "json"
     MIDI = "midi"
     MP3 = "mp3"
+    PDF = "pdf"
+    SVG = "svg"
+    PNG = "png"
     ALL = "all"
 
 
@@ -79,7 +83,7 @@ class OutputFormat(str, Enum):
 # -----------------------------------------------------------------------------
 def generate_exercise_with_output(instrument: str, level: str, key: str, tempo: int, time_signature: str,
                       measures: int, custom_prompt: str, mode: str, force_fallback: bool = False) -> Tuple[
-    str, Optional[str], str, Optional[object], str, str, int]:
+    str, Optional[str], str, Optional[object], str, str, int, Optional[str], Optional[str]]:
     """
     Generate an exercise and produce all output formats.
     
@@ -95,7 +99,7 @@ def generate_exercise_with_output(instrument: str, level: str, key: str, tempo: 
         force_fallback: Whether to force using fallback audio generation
         
     Returns:
-        Tuple of (JSON string, MP3 path, tempo string, MIDI object, duration string, time signature, total duration)
+        Tuple of (JSON string, MP3 path, tempo string, MIDI object, duration string, time signature, total duration, PDF path, SVG path)
     """
     try:
         # Generate the exercise using the library function
@@ -113,9 +117,24 @@ def generate_exercise_with_output(instrument: str, level: str, key: str, tempo: 
         # Generate audio
         mp3_path, real_duration = midi_to_mp3(midi, instrument, force_fallback)
         
-        return output_json_str, mp3_path, str(tempo), midi, f"{real_duration:.2f} seconds", time_signature, total_duration
+        # Generate sheet music (PDF and SVG)
+        pdf_path = None
+        svg_path = None
+        try:
+            # Create music21 Score from JSON
+            score = json_to_music21_score(output_json_str, instrument, key, time_signature, tempo, measures)
+            if score:
+                # Generate PDF
+                pdf_path = render_score_to_pdf(score, None)  # Returns temp path
+                # Generate SVG
+                svg_path = render_score_to_image(score, None, format='svg')
+        except Exception as e:
+            # Log but don't fail - sheet music is optional
+            console.print(f"[yellow]Warning: Could not generate sheet music: {e}[/yellow]")
+        
+        return output_json_str, mp3_path, str(tempo), midi, f"{real_duration:.2f} seconds", time_signature, total_duration, pdf_path, svg_path
     except Exception as e:
-        return f"Error: {str(e)}", None, str(tempo), None, "0", time_signature, 0
+        return f"Error: {str(e)}", None, str(tempo), None, "0", time_signature, 0, None, None
 
 
 # -----------------------------------------------------------------------------
@@ -160,7 +179,7 @@ def generate(
         key_str = key.value
         time_sig_str = time_signature.value
 
-        json_data, mp3_path, tempo_str, midi_obj, duration, time_sig, total_duration = generate_exercise_with_output(
+        json_data, mp3_path, tempo_str, midi_obj, duration, time_sig, total_duration, pdf_path, svg_path = generate_exercise_with_output(
             instrument_str, level_str, key_str, tempo, time_sig_str,
             measures, custom_prompt or "", mode, force_fallback
         )
@@ -190,6 +209,20 @@ def generate(
             if os.path.exists(mp3_path):
                 shutil.copy(mp3_path, new_mp3_path)
                 output_files.append(("MP3", new_mp3_path))
+
+    if output_format in [OutputFormat.PDF, OutputFormat.ALL]:
+        if pdf_path and os.path.exists(pdf_path):
+            # Copy the PDF file to the output directory
+            new_pdf_path = os.path.join(output_dir, f"{base_filename}.pdf")
+            shutil.copy(pdf_path, new_pdf_path)
+            output_files.append(("PDF", new_pdf_path))
+
+    if output_format in [OutputFormat.SVG, OutputFormat.ALL]:
+        if svg_path and os.path.exists(svg_path):
+            # Copy the SVG file to the output directory
+            new_svg_path = os.path.join(output_dir, f"{base_filename}.svg")
+            shutil.copy(svg_path, new_svg_path)
+            output_files.append(("SVG", new_svg_path))
 
     # Generate visualization if all formats are requested
     if output_format == OutputFormat.ALL:
@@ -352,6 +385,29 @@ def convert(
                 else:
                     console.print("[bold red]MP3 conversion failed even with fallback audio generation.[/bold red]")
 
+    if output_format in [OutputFormat.PDF, OutputFormat.ALL]:
+        with console.status("[bold green]Converting to PDF...[/bold green]"):
+            try:
+                # Convert JSON string back for sheet music generation
+                json_for_sheet = json.dumps(cleaned_parsed) if isinstance(cleaned_parsed[0], dict) else json.dumps([{"note": n, "duration": d} for n, d in cleaned_parsed])
+                
+                # Create music21 Score from JSON
+                key_str = "C Major"  # Default key
+                score = json_to_music21_score(json_for_sheet, instrument_str, key_str, time_sig_str, tempo, measures)
+                if score:
+                    pdf_path = render_score_to_pdf(score, None)
+                    if pdf_path and os.path.exists(pdf_path):
+                        new_pdf_path = os.path.join(output_dir, f"{base_name}.pdf")
+                        shutil.copy(pdf_path, new_pdf_path)
+                        output_files.append(("PDF", new_pdf_path))
+                        console.print("[bold green]PDF conversion successful![/bold green]")
+                    else:
+                        console.print("[bold red]PDF conversion failed.[/bold red]")
+                else:
+                    console.print("[bold red]Could not create music notation for PDF.[/bold red]")
+            except Exception as e:
+                console.print(f"[bold red]PDF conversion error: {e}[/bold red]")
+
     # Display results
     if output_files:
         console.print("\n[bold green]Conversion completed successfully![/bold green]")
@@ -383,8 +439,13 @@ def info():
         console.print(f"- {ts.value}")
 
     console.print("\n[bold]Output Formats:[/bold]")
-    for fmt in OutputFormat:
-        console.print(f"- {fmt.value}")
+    console.print("- json (JSON exercise data)")
+    console.print("- midi (MIDI file for playback)")
+    console.print("- mp3 (Audio file)")
+    console.print("- pdf (Professional sheet music PDF)")
+    console.print("- svg (Scalable vector sheet music)")
+    console.print("- png (PNG image of sheet music)")
+    console.print("- all (Generate all available formats)")
 
 
 if __name__ == "__main__":

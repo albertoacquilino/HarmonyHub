@@ -1,0 +1,72 @@
+[
+  {
+    "note": "C4",
+    "duration": 2,
+    "cumulative_duration": 2
+  },
+  {
+    "note": "D4",
+    "duration": 2,
+    "cumulative_duration": 4
+  },
+  {
+    "note": "E4",
+    "duration": 2,
+    "cumulative_duration": 6
+  },
+  {
+    "note": "F4",
+    "duration": 2,
+    "cumulative_duration": 8
+  },
+  {
+    "note": "G4",
+    "duration": 4,
+    "cumulative_duration": 12
+  },
+  {
+    "note": "E4",
+    "duration": 2,
+    "cumulative_duration": 14
+  },
+  {
+    "note": "F4",
+    "duration": 2,
+    "cumulative_duration": 16
+  },
+  {
+    "note": "G4",
+    "duration": 4,
+    "cumulative_duration": 20
+  },
+  {
+    "note": "C5",
+    "duration": 2,
+    "cumulative_duration": 22
+  },
+  {
+    "note": "Bb4",
+    "duration": 2,
+    "cumulative_duration": 24
+  },
+  {
+    "note": "A4",
+    "duration": 2,
+    "cumulative_duration": 26
+  },
+  {
+    "note": "G4",
+    "duration": 2,
+    "cumulative_duration": 28
+  },
+  {
+    "note": "F4",
+    "duration": 2,
+    "cumulative_duration": 30
+  },
+  {
+    "note": "C4",
+    "duration": 2,
+    "cumulative_duration": 32
+  }
+]

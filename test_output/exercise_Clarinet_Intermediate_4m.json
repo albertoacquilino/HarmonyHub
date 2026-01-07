@@ -1,0 +1,87 @@
+[
+  {
+    "note": "F4",
+    "duration": 2,
+    "cumulative_duration": 2
+  },
+  {
+    "note": "A4",
+    "duration": 2,
+    "cumulative_duration": 4
+  },
+  {
+    "note": "Bb4",
+    "duration": 1,
+    "cumulative_duration": 5
+  },
+  {
+    "note": "A4",
+    "duration": 1,
+    "cumulative_duration": 6
+  },
+  {
+    "note": "G4",
+    "duration": 1,
+    "cumulative_duration": 7
+  },
+  {
+    "note": "F4",
+    "duration": 1,
+    "cumulative_duration": 8
+  },
+  {
+    "note": "C5",
+    "duration": 2,
+    "cumulative_duration": 10
+  },
+  {
+    "note": "Bb4",
+    "duration": 2,
+    "cumulative_duration": 12
+  },
+  {
+    "note": "A4",
+    "duration": 1,
+    "cumulative_duration": 13
+  },
+  {
+    "note": "G4",
+    "duration": 1,
+    "cumulative_duration": 14
+  },
+  {
+    "note": "F4",
+    "duration": 2,
+    "cumulative_duration": 16
+  },
+  {
+    "note": "A4",
+    "duration": 2,
+    "cumulative_duration": 18
+  },
+  {
+    "note": "Bb4",
+    "duration": 1,
+    "cumulative_duration": 19
+  },
+  {
+    "note": "A4",
+    "duration": 1,
+    "cumulative_duration": 20
+  },
+  {
+    "note": "G4",
+    "duration": 1,
+    "cumulative_duration": 21
+  },
+  {
+    "note": "F4",
+    "duration": 3,
+    "cumulative_duration": 24
+  },
+  {
+    "note": "C5",
+    "duration": 8,
+    "cumulative_duration": 32
+  }
+]

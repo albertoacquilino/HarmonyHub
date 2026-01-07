@@ -1,0 +1,87 @@
+[
+  {
+    "note": "D5",
+    "duration": 1,
+    "cumulative_duration": 1
+  },
+  {
+    "note": "A5",
+    "duration": 1,
+    "cumulative_duration": 2
+  },
+  {
+    "note": "D6",
+    "duration": 2,
+    "cumulative_duration": 4
+  },
+  {
+    "note": "F#5",
+    "duration": 1,
+    "cumulative_duration": 5
+  },
+  {
+    "note": "E5",
+    "duration": 1,
+    "cumulative_duration": 6
+  },
+  {
+    "note": "D5",
+    "duration": 2,
+    "cumulative_duration": 8
+  },
+  {
+    "note": "A5",
+    "duration": 1,
+    "cumulative_duration": 9
+  },
+  {
+    "note": "B5",
+    "duration": 1,
+    "cumulative_duration": 10
+  },
+  {
+    "note": "F#5",
+    "duration": 2,
+    "cumulative_duration": 12
+  },
+  {
+    "note": "D5",
+    "duration": 1,
+    "cumulative_duration": 13
+  },
+  {
+    "note": "G5",
+    "duration": 1,
+    "cumulative_duration": 14
+  },
+  {
+    "note": "A5",
+    "duration": 2,
+    "cumulative_duration": 16
+  },
+  {
+    "note": "D6",
+    "duration": 2,
+    "cumulative_duration": 18
+  },
+  {
+    "note": "B5",
+    "duration": 1,
+    "cumulative_duration": 19
+  },
+  {
+    "note": "G5",
+    "duration": 1,
+    "cumulative_duration": 20
+  },
+  {
+    "note": "F#5",
+    "duration": 2,
+    "cumulative_duration": 22
+  },
+  {
+    "note": "E5",
+    "duration": 2,
+    "cumulative_duration": 24
+  }
+]

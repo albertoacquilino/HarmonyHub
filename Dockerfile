@@ -5,6 +5,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fluidsynth \
     libsndfile1 \
     ffmpeg \
+    lilypond \
+    ghostscript \
     wget \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
